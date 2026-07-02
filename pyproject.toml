@@ -1,0 +1,87 @@
+[build-system]
+requires = ["hatchling>=1.24"]
+build-backend = "hatchling.build"
+
+[project]
+name = "arabic-rag-kit"
+version = "0.1.0"
+description = "Prepare Arabic (and mixed Arabic/English) documents for RAG and search: normalization, sentence-aware chunking, and a provider-agnostic vector index."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Hasan Odeh", email = "hodeh84@gmail.com" }]
+maintainers = [{ name = "Hasan Odeh", email = "hodeh84@gmail.com" }]
+keywords = [
+    "arabic",
+    "rag",
+    "nlp",
+    "text-normalization",
+    "chunking",
+    "embeddings",
+    "vector-search",
+    "information-retrieval",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: Arabic",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Text Processing :: Linguistic",
+    "Typing :: Typed",
+]
+# Core install has ZERO required third-party dependencies.
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/hasanodeh/arabic-rag-kit"
+Repository = "https://github.com/hasanodeh/arabic-rag-kit"
+Issues = "https://github.com/hasanodeh/arabic-rag-kit/issues"
+Changelog = "https://github.com/hasanodeh/arabic-rag-kit/blob/main/CHANGELOG.md"
+
+[project.optional-dependencies]
+search = ["numpy>=1.23"]
+embeddings = ["sentence-transformers>=2.2"]
+docs = ["pypdf>=4.0", "python-docx>=1.1"]
+all = [
+    "numpy>=1.23",
+    "sentence-transformers>=2.2",
+    "pypdf>=4.0",
+    "python-docx>=1.1",
+]
+dev = [
+    "pytest>=8.0",
+    "build>=1.2",
+    "ruff>=0.5",
+    "numpy>=1.23",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["arabic_rag_kit"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/arabic_rag_kit",
+    "/tests",
+    "/README.md",
+    "/LICENSE",
+    "/CHANGELOG.md",
+    "/CONTRIBUTING.md",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "W"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
