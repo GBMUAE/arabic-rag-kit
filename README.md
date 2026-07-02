@@ -6,7 +6,7 @@
 [![PyPI version](https://img.shields.io/pypi/v/arabic-rag-kit.svg)](https://pypi.org/project/arabic-rag-kit/)
 [![Python versions](https://img.shields.io/pypi/pyversions/arabic-rag-kit.svg)](https://pypi.org/project/arabic-rag-kit/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![CI](https://github.com/hasanodeh/arabic-rag-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/hasanodeh/arabic-rag-kit/actions/workflows/ci.yml)
+[![CI](https://github.com/GBMUAE/arabic-rag-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/GBMUAE/arabic-rag-kit/actions/workflows/ci.yml)
 
 ---
 

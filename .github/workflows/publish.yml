@@ -8,7 +8,7 @@
 #   2. Go to https://pypi.org/manage/account/publishing/
 #   3. Under "Add a new pending publisher", fill in:
 #        PyPI Project Name:  arabic-rag-kit
-#        Owner:              <your-github-username-or-org>   (e.g. hasanodeh)
+#        Owner:              <your-github-username-or-org>   (e.g. GBMUAE)
 #        Repository name:    arabic-rag-kit
 #        Workflow name:      publish.yml
 #        Environment name:   pypi

@@ -40,10 +40,10 @@ classifiers = [
 dependencies = []
 
 [project.urls]
-Homepage = "https://github.com/hasanodeh/arabic-rag-kit"
-Repository = "https://github.com/hasanodeh/arabic-rag-kit"
-Issues = "https://github.com/hasanodeh/arabic-rag-kit/issues"
-Changelog = "https://github.com/hasanodeh/arabic-rag-kit/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/GBMUAE/arabic-rag-kit"
+Repository = "https://github.com/GBMUAE/arabic-rag-kit"
+Issues = "https://github.com/GBMUAE/arabic-rag-kit/issues"
+Changelog = "https://github.com/GBMUAE/arabic-rag-kit/blob/main/CHANGELOG.md"
 
 [project.optional-dependencies]
 search = ["numpy>=1.23"]

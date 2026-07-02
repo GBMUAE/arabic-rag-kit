@@ -6,7 +6,7 @@ kinds are welcome — bug reports, documentation, tests, and code.
 ## Development setup
 
 ```bash
-git clone https://github.com/hasanodeh/arabic-rag-kit.git
+git clone https://github.com/GBMUAE/arabic-rag-kit.git
 cd arabic-rag-kit
 
 python -m venv .venv
