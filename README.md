@@ -264,6 +264,36 @@ load_pdf("report_ar.pdf")    # needs [docs]  (pypdf)
 load_docx("memo_ar.docx")    # needs [docs]  (python-docx)
 ```
 
+## Command line
+
+Installing the package also installs an `arabic-rag-kit` command — handy for
+quick jobs and shell pipelines, no Python file needed. Each subcommand reads
+from an argument, an `--input` file, or standard input:
+
+```bash
+# Normalize a string
+arabic-rag-kit normalize "الْعَرَبِيَّةُ ١٢٣ كتـــاب"
+# -> العربية 123 كتاب
+
+# Normalize a whole file with the aggressive profile, write the result out
+arabic-rag-kit normalize -i doc_ar.txt -o clean.txt --hamza --ta-marbuta --alef-maqsura
+
+# Pipe text in from anything
+cat report_ar.txt | arabic-rag-kit normalize > report_clean.txt
+
+# Split into sentences (one per line)
+arabic-rag-kit sentences "جملة أولى. جملة ثانية؟"
+
+# Chunk a document and emit JSON with offsets (great for feeding a script)
+arabic-rag-kit chunk -i doc_ar.txt --size 500 --overlap 100 --normalize --json
+```
+
+Run `arabic-rag-kit --help` (or `arabic-rag-kit normalize --help`) to see every
+flag. The normalization flags mirror the Python options: `--hamza`,
+`--ta-marbuta`, `--alef-maqsura` turn on the off-by-default folds, while
+`--no-diacritics`, `--no-tatweel`, `--no-alef`, `--no-digits`, `--no-control`,
+`--no-whitespace` turn off the on-by-default steps.
+
 ## API overview
 
 | Symbol | Import | Extra | What it does |
@@ -276,6 +306,7 @@ load_docx("memo_ar.docx")    # needs [docs]  (python-docx)
 | `VectorIndex` | `arabic_rag_kit` | `[search]` | Cosine-similarity vector index |
 | `sentence_transformers_embedder(model_name)` | `arabic_rag_kit.search` | `[embeddings]` | Ready-made `embed_fn` |
 | `load_txt` / `load_pdf` / `load_docx` | `arabic_rag_kit.loaders` | `[docs]`\* | File loaders (\*txt is stdlib) |
+| `arabic-rag-kit` (CLI) | shell command | — | `normalize` / `sentences` / `chunk` |
 
 ### Normalization options (defaults)
 
@@ -290,6 +321,44 @@ load_docx("memo_ar.docx")    # needs [docs]  (python-docx)
 | `convert_digits` | `True` | `٠–٩` and `۰–۹` → `0–9` |
 | `strip_control_chars` | `True` | Remove zero-width & bidi controls |
 | `collapse_whitespace` | `True` | Collapse runs of whitespace and trim |
+
+## Configuration reference
+
+### Which normalization profile should I use?
+
+- **Default profile** (just call `normalize(text)`) — safe for display and
+  general cleanup. It removes diacritics, tatweel, and control characters,
+  folds alef variants, and converts digits, **without** changing letters that
+  carry meaning (hamza, ta marbuta, alef maqsura stay as written).
+- **Aggressive / "search key" profile** — turn on `normalize_hamza`,
+  `normalize_ta_marbuta`, and `normalize_alef_maqsura` too. This collapses more
+  spelling variants into one form, which **maximizes recall** for search,
+  matching, and deduplication. The trade-off is that the output is no longer a
+  "correct" spelling — use it as an internal index/match key, not for display.
+- **Golden rule:** apply the *same* profile to your documents and your queries.
+  A query normalized differently from the index will silently miss matches.
+
+```python
+from arabic_rag_kit import Normalizer, NormalizerConfig
+
+display   = Normalizer()                                   # safe default
+search_key = Normalizer(NormalizerConfig(
+    normalize_hamza=True, normalize_ta_marbuta=True, normalize_alef_maqsura=True,
+))
+```
+
+### Choosing `chunk_size` and `chunk_overlap`
+
+- **`chunk_size`** is measured in **characters**, not tokens. A rough guide for
+  embedding models: ~4 characters per token, so `chunk_size=1000` ≈ 250 tokens.
+  Pick a size comfortably under your embedding model's limit.
+- **`chunk_overlap`** keeps context from spilling across a boundary. A common
+  starting point is **10–20% of `chunk_size`** (e.g. 1000 / 200). It must be
+  smaller than `chunk_size`, or `chunk_text` raises `ValueError`.
+- Smaller chunks → more precise retrieval but more vectors to store; larger
+  chunks → fewer vectors but coarser hits. Start at `1000 / 200` and tune.
+- Set `normalize=True` to normalize *and* chunk in one call; the returned
+  offsets then index into the normalized text.
 
 ## Development
 

@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "arabic-rag-kit"
-version = "0.1.0"
+version = "0.2.0"
 description = "Prepare Arabic (and mixed Arabic/English) documents for RAG and search: normalization, sentence-aware chunking, and a provider-agnostic vector index."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -44,6 +44,9 @@ Homepage = "https://github.com/GBMUAE/arabic-rag-kit"
 Repository = "https://github.com/GBMUAE/arabic-rag-kit"
 Issues = "https://github.com/GBMUAE/arabic-rag-kit/issues"
 Changelog = "https://github.com/GBMUAE/arabic-rag-kit/blob/main/CHANGELOG.md"
+
+[project.scripts]
+arabic-rag-kit = "arabic_rag_kit.cli:main"
 
 [project.optional-dependencies]
 search = ["numpy>=1.23"]

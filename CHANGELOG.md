@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-07-03
+
+### Added
+- Command-line interface `arabic-rag-kit` with three subcommands:
+  `normalize`, `sentences`, and `chunk`. Reads from an argument, `--input`
+  file, or stdin; writes to stdout or `--output`. All normalization options are
+  exposed as flags, and `chunk` supports `--json` output with offsets. Pure
+  standard library — the core stays dependency-free.
+
 ## [0.1.0] - 2026-07-02
 
 ### Added
@@ -30,5 +39,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Full pytest suite, ruff configuration, and GitHub Actions CI + PyPI Trusted
   Publishing workflows.
 
-[Unreleased]: https://github.com/GBMUAE/arabic-rag-kit/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/GBMUAE/arabic-rag-kit/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/GBMUAE/arabic-rag-kit/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/GBMUAE/arabic-rag-kit/releases/tag/v0.1.0

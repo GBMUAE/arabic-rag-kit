@@ -12,7 +12,7 @@ from __future__ import annotations
 from .chunk import Chunk, chunk_text, split_sentences
 from .normalize import Normalizer, NormalizerConfig, normalize
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 __all__ = [
     "__version__",
